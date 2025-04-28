@@ -10,7 +10,7 @@ async function main() {
   await fs.writeFile("reverse.txt", reversedData);
 }
 
-// main();
+main();
 
 //2) Fetch data from this API: https://jsonplaceholder.typicode.com/users.
 // Parse the data so that each object contains only four properties: id, name, username, and email. Write the resulting array to a file called users.json.
@@ -25,8 +25,6 @@ async function main1() {
         username: user.username,
         email: user.email,
       }));
-
-      console.log(users);
 
       fs.writeFile("users.json", JSON.stringify(users))
         .then(() => console.log("File written successfully"))
@@ -65,3 +63,18 @@ async function mine() {
 }
 
 mine();
+
+//4) Write a random text into a file named text.txt.
+// Then, read this file and count how many vowels are present.
+
+async function main2() {
+  const data = await fs.readFile("random.txt", "utf-8");
+
+  const vowels = data.split("").filter((letter) => {
+    return ["a", "e", "i", "o", "u"].includes(letter.toLowerCase());
+  });
+
+  console.log("Sul aris" + " " + vowels.length + " " + "Xmovani");
+}
+
+main2();
