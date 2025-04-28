@@ -10,4 +10,58 @@ async function main() {
   await fs.writeFile("reverse.txt", reversedData);
 }
 
-main();
+// main();
+
+//2) Fetch data from this API: https://jsonplaceholder.typicode.com/users.
+// Parse the data so that each object contains only four properties: id, name, username, and email. Write the resulting array to a file called users.json.
+
+async function main1() {
+  fetch("https://jsonplaceholder.typicode.com/users")
+    .then((res) => res.json())
+    .then((data) => {
+      const users = data.map((user) => ({
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+      }));
+
+      console.log(users);
+
+      fs.writeFile("users.json", JSON.stringify(users))
+        .then(() => console.log("File written successfully"))
+        .catch((err) => console.error(err));
+    });
+}
+
+main1();
+
+//3) Run the command node main.js Ferrari 2020 red, retrieve the data from process.argv,
+//  and build a car object with the properties id, carModel, carColor, and carReleaseDate.
+// (id should be unique) Append this object to cars.json. Each time you run this command,
+//  a new object should be added to cars.json,
+// so if you run it five times, you should have five objects in the file.
+
+const [, , carName, carReleaseDate, carColor] = process.argv;
+
+async function mine() {
+  try {
+    const data = await fs.readFile("cars.json", "utf-8");
+    const Cars = JSON.parse(data);
+
+    const Car = {
+      id: Cars.length + 1,
+      model: carName,
+      color: carColor,
+      releaseDate: carReleaseDate,
+    };
+
+    Cars.push(Car);
+    await fs.writeFile("cars.json", JSON.stringify(Cars));
+    console.log("New Car added");
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+mine();

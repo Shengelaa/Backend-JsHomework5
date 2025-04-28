@@ -1,0 +1,4 @@
+[
+  { "id": 1, "model": "Ferrari", "color": "red", "releaseDate": "2020" },
+  { "id": 2, "model": "Lambo", "color": "black", "releaseDate": "2021" }
+]
